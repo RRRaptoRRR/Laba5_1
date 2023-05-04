@@ -2,7 +2,7 @@ package data;
 
 import java.time.ZonedDateTime;
 
-public class LabWork {
+public class LabWork implements Comparable<LabWork>{
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private static long StaticId=0;
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -40,15 +40,21 @@ public class LabWork {
     public String toString(){
         return  "Лаба:\n" +
                 "Id: " + this.id + "\n" +
-                "Name: " +this.name+"\n" +
-                "Coordinates:\n" +
-                "X: "+ this.coordinates.getX()+"\n" +
-                "Y: " + this.coordinates.getY()+"\n" +
-                "Баллы за лабу: " + this.minimalPoint +"\n" +
-                "Сложность: " + this.difficulty + "\n" +
-                "Студент:\n" +
-                "Имя: "+ this.author.getName() + "\n" +
-                "Рост: "+ this.author.getHeight() + "\n" +
-                "Вес:"+ this.author.getWeight()+"\n";
+                "   Name: " +this.name+"\n" +
+                "   Coordinates:\n" +
+                "   X: "+ this.coordinates.getX()+"\n" +
+                "   Y: " + this.coordinates.getY()+"\n" +
+                "   Баллы за лабу: " + this.minimalPoint +"\n" +
+                "   Сложность: " + this.difficulty + "\n" +
+                "   Студент:\n" +
+                "   Имя: "+ this.author.getName() + "\n" +
+                "   Рост: "+ this.author.getHeight() + "\n" +
+                "   Вес:"+ this.author.getWeight()+"\n";
+    }
+    @Override
+    public int compareTo(LabWork labWork){
+        return (int)this.id;
+        //int result = this.id.compareTo(labWork.id);
+        //return result;
     }
 }

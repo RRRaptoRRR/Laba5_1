@@ -24,20 +24,14 @@ public class DataAsker {
         //consoleManager.print("Введите X:");
         int X;
         while (true){
-            //try {
+            try {
                 String x= consoleManager.input("Введите X:");
-                if (x==null || x==""){
-                    consoleManager.print("Координата X не может быть пустой");
-                }
-                else {
-                    X = Integer.parseInt(x);
-                    break;
-                }
-            //}
-            /*catch (NumberFormatException){
-                consoleManager.print("Координата X не может быть пустой");
-            }*/
-
+                X = Integer.parseInt(x);
+                break;
+            }
+            catch (NumberFormatException ex) {
+                consoleManager.print("Неправильные формат данных");
+            }
         }
         return X;
     }
@@ -45,13 +39,14 @@ public class DataAsker {
         Integer Y;
         //consoleManager.print("Введите Y:");
         while (true){
-            String y= consoleManager.input("Введите Y:");
-            if (y==null){
-                consoleManager.print("Координата Y не может быть пустой");
-            }
-            else {
+            try {
+                String y= consoleManager.input("Введите Y:");
                 Y = Integer.parseInt(y);
                 break;
+            }
+
+            catch (NumberFormatException ex) {
+                consoleManager.print("Неправильные формат данных");
             }
         }
         return Y;
@@ -60,16 +55,16 @@ public class DataAsker {
         Integer Point;
         //consoleManager.print("Введите Y:");
         while (true){
-            String point= consoleManager.input("Введите Кол-во баллов:");
-            if (point==null){
-                consoleManager.print("Кол-во баллов не может быть пустым");
-            }
-            else {
+            try {
+                String point= consoleManager.input("Введите Кол-во баллов:");
                 Point = Integer.parseInt(point);
                 if(Point<=0){
                     consoleManager.print("Кол-во баллов не может быть меньше 0");
                 }
                 else break;
+            }
+            catch (NumberFormatException ex) {
+                consoleManager.print("Неправильные формат данных");
             }
         }
         return Point;
@@ -91,7 +86,7 @@ public class DataAsker {
                     case "IMPOSSIBLE": Difficult = Difficulty.IMPOSSIBLE; break;
                     case "TERRIBLE": Difficult = Difficulty.TERRIBLE; break;
                     default:
-                        consoleManager.print("ВВедена не верная сложность");
+                        consoleManager.print("Введена не верная сложность");
                         flag=false;
                         break;
                 }
@@ -115,16 +110,16 @@ public class DataAsker {
         long Height;
         //consoleManager.print("Введите Y:");
         while (true){
-            String height= consoleManager.input("Введите рост студента:");
-            if (height==null){
-                consoleManager.print("Рост не может быть пустым");
-            }
-            else {
+            try {
+                String height= consoleManager.input("Введите рост студента:");
                 Height = Long.parseLong(height);
                 if(Height<=0){
                     consoleManager.print("Рост не может быть меньше 0");
                 }
                 else break;
+            }
+            catch (NumberFormatException ex) {
+                consoleManager.print("Неправильные формат данных");
             }
         }
         return Height;
@@ -133,17 +128,17 @@ public class DataAsker {
         Integer Weight;
         //consoleManager.print("Введите Y:");
         while (true){
-            String weight= consoleManager.input("Введите вес студента:");
-            if (weight==null){
-                consoleManager.print("Вес не может быть пустым");
-            }
-            else {
+            try {
+                String weight = consoleManager.input("Введите вес студента:");
                 Weight = Integer.parseInt(weight);
-                if(Weight<=0){
+                if (Weight <= 0) {
                     consoleManager.print("Вес не может быть меньше 0");
-                }
-                else break;
+                } else break;
             }
+            catch (NumberFormatException ex) {
+                consoleManager.print("Неправильные формат данных");
+            }
+
         }
         return Weight;
     }
