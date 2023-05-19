@@ -13,7 +13,7 @@ public class Help extends AbstractCommand{
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute(String args) {
         consoleManager.print("help : вывести справку по доступным командам\n" +
                 "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" +
                 "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n" +

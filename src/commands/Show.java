@@ -14,7 +14,7 @@ public class Show extends AbstractCommand {
         this.collectionManager=collectionManager;
     }
     @Override
-    public boolean execute() {
+    public boolean execute(String args) {
         if (collectionManager.getSize()!=0){
             for (LabWork labWork:collectionManager.getCollection()){
                 consoleManager.print(labWork.toString());

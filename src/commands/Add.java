@@ -13,14 +13,14 @@ public class Add extends AbstractCommand{
     private CollectionManager collectionManager;
     private DataAsker dataAsker;
 
-    public Add(ConsoleManager consoleManager, CollectionManager collectionManager){
+    public Add(ConsoleManager consoleManager, CollectionManager collectionManager, DataAsker dataAsker){
         super("add", "j");
         this.consoleManager=consoleManager;
         this.collectionManager=collectionManager;
-        dataAsker = new DataAsker(consoleManager);
+        this.dataAsker = dataAsker;
     }
     @Override
-    public boolean execute() {
+    public boolean execute(String args) {
         String LabName = dataAsker.AskLabName();
         consoleManager.print("Введите координаты:");
         int X = dataAsker.AskX();

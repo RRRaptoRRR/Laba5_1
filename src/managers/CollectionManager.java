@@ -26,4 +26,22 @@ public class CollectionManager {
     public void add(LabWork labWork){
         collection.add(labWork);
     }
+    /*public void update(float id){
+        if (getSize()){
+            for (LabWork labWork:getCollection()){
+                if (labWork.getId()==id){
+
+                }
+            }
+            //return true;
+        }
+        else{
+            consoleManager.print("Коллекция пуста");
+            return false;
+        }
+        //return true;
+    }*/
+    public void remove(LabWork labWork){
+        this.collection.remove(labWork);
+    }
 }

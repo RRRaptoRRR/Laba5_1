@@ -6,5 +6,5 @@ public interface Command {
     String getName();
     String getDiscription();
 
-    boolean execute();
+    boolean execute(String args);
 }

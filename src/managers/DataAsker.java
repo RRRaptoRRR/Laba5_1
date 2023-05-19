@@ -51,13 +51,13 @@ public class DataAsker {
         }
         return Y;
     }
-    public Integer AskPoint(){
-        Integer Point;
+    public float AskPoint(){
+        float Point;
         //consoleManager.print("Введите Y:");
         while (true){
             try {
                 String point= consoleManager.input("Введите Кол-во баллов:");
-                Point = Integer.parseInt(point);
+                Point = Float.parseFloat(point);
                 if(Point<=0){
                     consoleManager.print("Кол-во баллов не может быть меньше 0");
                 }

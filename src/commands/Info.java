@@ -17,8 +17,8 @@ public class Info extends AbstractCommand{
         this.collectionManager=collectionManager;
     }
     @Override
-    public boolean execute() {
-        consoleManager.print("Тип хранимого объекта: "+ collectionManager.getCollection().getClass().getName());
+    public boolean execute(String args) {
+        consoleManager.print("Тип хранимого объекта: "+ collectionManager.getCollection().getClass());//.getName());
         consoleManager.print("Дата инициализации: "+collectionManager.getInitDate().toString());
         consoleManager.print("Количество элементов: "+collectionManager.getSize());
        /*for (LabWork labWork:collectionManager.getCollection()){

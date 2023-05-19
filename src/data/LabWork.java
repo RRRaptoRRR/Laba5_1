@@ -20,7 +20,6 @@ public class LabWork implements Comparable<LabWork>{
         this.minimalPoint=minimalPoint;
         this.difficulty=difficulty;
         this.author=author;
-
     }
 
     public long getId() {return id;}
@@ -36,6 +35,26 @@ public class LabWork implements Comparable<LabWork>{
     public Difficulty getDifficulty() {return difficulty;}
 
     public Person getAuthor() {return author;}
+
+    public void setName(String name){
+        this.name=name;
+    }
+
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
+
+    public void setMinimalPoint(Float minimalPoint) {
+        this.minimalPoint = minimalPoint;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setAuthor(Person author) {
+        this.author = author;
+    }
 
     public String toString(){
         return  "Лаба:\n" +
@@ -53,8 +72,10 @@ public class LabWork implements Comparable<LabWork>{
     }
     @Override
     public int compareTo(LabWork labWork){
-        return (int)this.id;
+        //return (int)id;
         //int result = this.id.compareTo(labWork.id);
         //return result;
+        int result = java.lang.Long.compare( this.id, labWork.getId());
+        return result;
     }
 }
