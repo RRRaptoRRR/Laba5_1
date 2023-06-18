@@ -44,4 +44,25 @@ public class CollectionManager {
     public void remove(LabWork labWork){
         this.collection.remove(labWork);
     }
+    public void clear(){
+        this.collection.clear();
+    }
+    public float getMinByPoints(){
+        float min=Float.MAX_VALUE;
+        for(LabWork labWork: this.collection){
+            if (labWork.getMinimalPoint()<min){
+                min = labWork.getMinimalPoint();
+            }
+        }
+        return min;
+    }
+    public float getMaxByPoints(){
+        float max=Float.MIN_VALUE;
+        for(LabWork labWork: this.collection){
+            if (labWork.getMinimalPoint()>max){
+                max = labWork.getMinimalPoint();
+            }
+        }
+        return max;
+    }
 }
