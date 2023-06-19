@@ -86,7 +86,7 @@ public class DataAsker {
                     case "IMPOSSIBLE": Difficult = Difficulty.IMPOSSIBLE; break;
                     case "TERRIBLE": Difficult = Difficulty.TERRIBLE; break;
                     default:
-                        consoleManager.print("Введена не верная сложность");
+                        consoleManager.print("Введена неверная сложность");
                         flag=false;
                         break;
                 }

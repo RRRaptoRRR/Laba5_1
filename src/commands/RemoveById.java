@@ -20,18 +20,14 @@ public class RemoveById extends AbstractCommand{
             if (args!=null){
                 if (collectionManager.getSize()!=0){
                     long id = Long.parseLong(args);
-                    boolean flag=true;
                     for (LabWork labWork:collectionManager.getCollection()){
                         if (java.lang.Long.compare(labWork.getId(), id)==0){
                             collectionManager.remove(labWork);
-                            flag=false;
+
                             return true;
                         }
                     }
-                    if( flag) {
-                        consoleManager.print("В коллекции нет LabWork с таким id");
-                        return false;
-                    }
+                    consoleManager.print("В коллекции нет LabWork с таким id");
                 }
                 else{
                     consoleManager.print("Коллекция пуста");

@@ -24,6 +24,11 @@ public class CommandManager {
     private AddIfMin addIfMin;
 
     private History history;
+    private RemoveAllByDifficulty removeAllByDifficulty;
+
+    private RemoveAnyByMinimalPoint removeAnyByMinimalPoint;
+
+    private FilterByDifficulty filterByDifficulty;
 
 
 
@@ -44,6 +49,9 @@ public class CommandManager {
         this.addIfMax = new AddIfMax(consoleManager, collectionManager, this.dataAsker);
         this.addIfMin = new AddIfMin(consoleManager, collectionManager, this.dataAsker);
         this.history = new History(consoleManager, hist);
+        this.removeAllByDifficulty = new RemoveAllByDifficulty(consoleManager, collectionManager);
+        this.removeAnyByMinimalPoint = new RemoveAnyByMinimalPoint(consoleManager, collectionManager);
+        this.filterByDifficulty = new FilterByDifficulty(consoleManager, collectionManager);
     }
 
     public void RunCommand(String command, String args){
@@ -61,6 +69,9 @@ public class CommandManager {
             case "add_if_max": addIfMax.execute(args); hist.add(addIfMin.getName()); break;
             case "add_if_min": addIfMin.execute(args); hist.add(addIfMax.getName()); break;
             case "history": history.execute(args); hist.add(history.getName()); break;
+            case "remove_all_by_difficulty": removeAllByDifficulty.execute(args); hist.add(removeAllByDifficulty.getName()); break;
+            case "remove_any_by_minimal_point": removeAnyByMinimalPoint.execute(args); hist.add(removeAnyByMinimalPoint.getName()); break;
+            case "filter_by_difficulty": filterByDifficulty.execute(args); hist.add(filterByDifficulty.getName()); break;
             default:
                 consoleManager.print("Команда не распознана" +
                         "Введите help, чтобы узнать доступные команды");
