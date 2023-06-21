@@ -1,6 +1,8 @@
 package managers;
 
 import data.Difficulty;
+import exceptions.InvalidInputException;
+import exceptions.InvalidInputRangeException;
 
 public class DataAsker {
 
@@ -12,22 +14,36 @@ public class DataAsker {
     public String AskLabName(){
         String LabName="";
         while (true){
-           LabName = consoleManager.input("Введите название лабораторной:");
-           if (LabName==null){
-               consoleManager.print("Название лабораторной не может быть пустым");
-           }
-           else break;
+            try {
+                LabName = consoleManager.input("Введите название лабораторной:");
+                if (LabName==null){
+                    throw new InvalidInputException("Название лабораторной не может быть пустым");
+                    //consoleManager.print("Название лабораторной не может быть пустым");
+                }
+                else break;
+            }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
+            }
+
         }
         return LabName;
     }
     public int AskX(){
-        //consoleManager.print("Введите X:");
         int X;
         while (true){
             try {
                 String x= consoleManager.input("Введите X:");
-                X = Integer.parseInt(x);
-                break;
+                if (x==null){
+                    throw new InvalidInputException("X не может быть пустым");
+                }
+                else {
+                    X = Integer.parseInt(x);
+                    break;
+                }
+            }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
             }
             catch (NumberFormatException ex) {
                 consoleManager.print("Неправильные формат данных");
@@ -37,12 +53,19 @@ public class DataAsker {
     }
     public Integer AskY(){
         Integer Y;
-        //consoleManager.print("Введите Y:");
         while (true){
             try {
                 String y= consoleManager.input("Введите Y:");
-                Y = Integer.parseInt(y);
-                break;
+                if (y==null){
+                    throw new InvalidInputException("Y не может быть пустым");
+                }
+                else {
+                    Y = Integer.parseInt(y);
+                    break;
+                }
+            }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
             }
 
             catch (NumberFormatException ex) {
@@ -53,18 +76,31 @@ public class DataAsker {
     }
     public float AskPoint(){
         float Point;
-        //consoleManager.print("Введите Y:");
         while (true){
             try {
+
                 String point= consoleManager.input("Введите Кол-во баллов:");
-                Point = Float.parseFloat(point);
-                if(Point<=0){
-                    consoleManager.print("Кол-во баллов не может быть меньше 0");
+                if (point==null){
+                    throw new InvalidInputException("Point не может быть пустым");
                 }
-                else break;
+                else {
+                    Point = Float.parseFloat(point);
+                    if(Point<=0){
+                        throw new InvalidInputRangeException("Кол-во баллов не может быть меньше или ровно 0");
+                        //consoleManager.print("Кол-во баллов не может быть меньше 0");
+                    }
+                    else break;
+                }
+
+            }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
+            }
+            catch (InvalidInputRangeException ex){
+                consoleManager.print(ex.getMessage());
             }
             catch (NumberFormatException ex) {
-                consoleManager.print("Неправильные формат данных");
+                consoleManager.print("Неправильный формат данных");
             }
         }
         return Point;
@@ -72,71 +108,105 @@ public class DataAsker {
     public Difficulty AskDifficult(){
         Difficulty Difficult = Difficulty.HARD;
         while (true){
-            consoleManager.print("Введите сложность данной лабы:");
-            String difficult = consoleManager.input("VERY_EASY, HARD, IMPOSSIBLE, TERRIBLE: ");
-            if (difficult==null){
-                consoleManager.print("Сложность не может быть пустым");
-            }
-            else {
-                boolean flag=true;
-                difficult=difficult.toUpperCase();
-                switch (difficult){
-                    case "VERY_EASY": Difficult = Difficulty.VERY_EASY; break;
-                    case "HARD": Difficult = Difficulty.HARD; break;
-                    case "IMPOSSIBLE": Difficult = Difficulty.IMPOSSIBLE; break;
-                    case "TERRIBLE": Difficult = Difficulty.TERRIBLE; break;
-                    default:
-                        consoleManager.print("Введена неверная сложность");
-                        flag=false;
-                        break;
+            try {
+                consoleManager.print("Введите сложность данной лабы:");
+                String difficult = consoleManager.input("VERY_EASY, HARD, IMPOSSIBLE, TERRIBLE: ");
+                if (difficult==null){
+                    throw new InvalidInputException("Сложность не может быть пустой");
+                    //consoleManager.print("Сложность не может быть пустой");
                 }
-                if (flag) break;
+                else {
+                    boolean flag=true;
+                    difficult=difficult.toUpperCase();
+                    switch (difficult){
+                        case "VERY_EASY": Difficult = Difficulty.VERY_EASY; break;
+                        case "HARD": Difficult = Difficulty.HARD; break;
+                        case "IMPOSSIBLE": Difficult = Difficulty.IMPOSSIBLE; break;
+                        case "TERRIBLE": Difficult = Difficulty.TERRIBLE; break;
+                        default:
+
+                            //consoleManager.print("Введена неверная сложность");
+                            flag=false;
+                            throw new InvalidInputException("Введена неверная сложность");
+                            //break;
+                    }
+                    if (flag) break;
+                }
             }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
+            }
+
         }
         return Difficult;
     }
     public String AskPersonName(){
         String PersonName="";
         while (true){
-            PersonName = consoleManager.input("Введите имя студента");
-            if (PersonName==null){
-                consoleManager.print("Имя не может быть пустым");
+            try {
+                PersonName = consoleManager.input("Введите имя студента");
+                if (PersonName==null){
+                    throw new InvalidInputException("Имя не может быть пустым");
+                    //consoleManager.print("Имя не может быть пустым");
+                }
+                else break;
             }
-            else break;
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
+            }
+
         }
         return PersonName;
     }
     public long AskHeight(){
         long Height;
-        //consoleManager.print("Введите Y:");
         while (true){
             try {
                 String height= consoleManager.input("Введите рост студента:");
+                if (height==null){
+                    throw new InvalidInputException("Рост не может быть пустым");
+                }
                 Height = Long.parseLong(height);
                 if(Height<=0){
-                    consoleManager.print("Рост не может быть меньше 0");
+                    throw new InvalidInputRangeException("Рост не может быть меньше или ровно  0");
+                    //consoleManager.print("Рост не может быть меньше 0");
                 }
                 else break;
             }
+            catch (InvalidInputRangeException ex){
+                consoleManager.print(ex.getMessage());
+            }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
+            }
             catch (NumberFormatException ex) {
-                consoleManager.print("Неправильные формат данных");
+                consoleManager.print("Неправильный формат данных");
             }
         }
         return Height;
     }
     public Integer AskWeight(){
         Integer Weight;
-        //consoleManager.print("Введите Y:");
         while (true){
             try {
                 String weight = consoleManager.input("Введите вес студента:");
+                if (weight==null){
+                    throw new InvalidInputException("Вес не может быть пустым");
+                }
                 Weight = Integer.parseInt(weight);
                 if (Weight <= 0) {
-                    consoleManager.print("Вес не может быть меньше 0");
+                    throw new InvalidInputRangeException("Вес не может быть меньше или ровно 0");
+                    //consoleManager.print("Вес не может быть меньше 0");
                 } else break;
             }
+            catch (InvalidInputRangeException ex){
+                consoleManager.print(ex.getMessage());
+            }
+            catch (InvalidInputException ex){
+                consoleManager.print(ex.getMessage());
+            }
             catch (NumberFormatException ex) {
-                consoleManager.print("Неправильные формат данных");
+                consoleManager.print("Неправильный формат данных");
             }
 
         }
