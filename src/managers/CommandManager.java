@@ -30,6 +30,9 @@ public class CommandManager {
 
     private FilterByDifficulty filterByDifficulty;
 
+    private Read read;
+
+    private Save save;
 
 
     public CommandManager(CollectionManager collectionManager, ConsoleManager consoleManager){
@@ -44,6 +47,8 @@ public class CommandManager {
         this.update = new Update(consoleManager, collectionManager, this.dataAsker);
         this.removeById = new RemoveById(consoleManager, collectionManager);
         this.clear = new Clear(collectionManager);
+        this.read = new Read(consoleManager, collectionManager);
+        this.save = new Save(consoleManager, collectionManager);
 
         this.exit = new Exit();
         this.addIfMax = new AddIfMax(consoleManager, collectionManager, this.dataAsker);
@@ -64,6 +69,8 @@ public class CommandManager {
             case "update": update.execute(args); hist.add(update.getName()); break;
             case "remove_by_id": removeById.execute(args); hist.add(removeById.getName()); break;
             case "clear": clear.execute(args); hist.add(clear.getName()); break;
+            case "read": read.execute(args); hist.add(read.getName()); break;
+            case "save": save.execute(args); hist.add(read.getName()); break;
 
             case "exit": exit.execute(args); hist.add(exit.getName()); break;
             case "add_if_max": addIfMax.execute(args); hist.add(addIfMin.getName()); break;
