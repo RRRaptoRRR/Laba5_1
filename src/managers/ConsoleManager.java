@@ -29,7 +29,10 @@ public class ConsoleManager {
                 command=Input[0];
                 arg=Input[1];
             }
-            else print("Введено слишком много аргументов");
+            else{
+                print("Введено слишком много аргументов");
+                continue;
+            }
             commandManager.RunCommand(command, arg);
 
         }

@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class Read extends AbstractCommand{
@@ -37,22 +38,23 @@ public class Read extends AbstractCommand{
             csvReader.readLine();
             while ((row = csvReader.readLine()) != null) {
                 String [] element = row.split(",");
-                if (element.length != 8){
+                if (element.length != 10){
                     consoleManager.print("В одном из элементов файла не хватает параметров");
                     break;
                 }
                 else {
 
-                    String LabName=element[0];
-                    int X = Integer.parseInt(element[1]);
-                    int Y = Integer.parseInt(element[2]);
-                    float Point = Float.parseFloat(element[3]);
+                    String LabName=element[1];
+                    int X = Integer.parseInt(element[2]);
+                    int Y = Integer.parseInt(element[3]);
+                    java.time.ZonedDateTime creationDate = ZonedDateTime.parse(element[4]);
+                    float Point = Float.parseFloat(element[5]);
                     if (Point<=0){
                         throw new InvalidInputException("Кол-во баллов не может быть меньше или ровно 0");
                     }
                     Difficulty Difficult = Difficulty.HARD;
 
-                    String difficult=element[4].toUpperCase();
+                    String difficult=element[6].toUpperCase();
                     switch (difficult){
                         case "VERY_EASY": Difficult = Difficulty.VERY_EASY; break;
                         case "HARD": Difficult = Difficulty.HARD; break;
@@ -61,13 +63,13 @@ public class Read extends AbstractCommand{
                         default:
                             throw new InvalidInputException("Введена неверная сложность");
                     }
-                    String PersonName=element[5];
-                    long Height = Long.parseLong(element[6]);
+                    String PersonName=element[7];
+                    long Height = Long.parseLong(element[8]);
                     if(Height<=0){
                         throw new InvalidInputRangeException("Рост не может быть меньше или ровно  0");
                         //consoleManager.print("Рост не может быть меньше 0");
                     }
-                    Integer Weight = Integer.parseInt(element[7]);
+                    Integer Weight = Integer.parseInt(element[9]);
                     if (Weight <= 0) {
                         throw new InvalidInputRangeException("Вес не может быть меньше или ровно 0");
                         //consoleManager.print("Вес не может быть меньше 0");

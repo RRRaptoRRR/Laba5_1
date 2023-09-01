@@ -22,14 +22,18 @@ public class Save extends AbstractCommand{
     public boolean execute(String args) {
         try {
             FileWriter csvWriter = new FileWriter(args);
-            csvWriter.append("labname,x,y,points,difficult,studname,height,weight");
+            csvWriter.append("id,labname,x,y,date,points,difficult,studname,height,weight");
             csvWriter.append("\n");
             for (LabWork labWork:collectionManager.getCollection()){
+                csvWriter.append(Long.toString(labWork.getId()));
+                csvWriter.append(",");
                 csvWriter.append(labWork.getName());
                 csvWriter.append(",");
                 csvWriter.append(Integer.toString(labWork.getCoordinates().getX()));
                 csvWriter.append(",");
                 csvWriter.append(labWork.getCoordinates().getY().toString());
+                csvWriter.append(",");
+                csvWriter.append(labWork.getCreationDate().toString());
                 csvWriter.append(",");
                 csvWriter.append(labWork.getMinimalPoint().toString());
                 csvWriter.append(",");
