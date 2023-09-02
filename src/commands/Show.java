@@ -19,6 +19,7 @@ public class Show extends AbstractCommand {
             for (LabWork labWork:collectionManager.getCollection()){
                 consoleManager.print(labWork.toString());
             }
+            consoleManager.print("---------------------");
             return true;
         }
         else{

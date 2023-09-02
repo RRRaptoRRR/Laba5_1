@@ -90,7 +90,7 @@ public class Read extends AbstractCommand{
             System.out.println("Указан неверный путь");
         }
         catch (IOException ex){
-            System.out.println("*_*");
+            System.out.println("Файл не считался");
         }
         catch (NumberFormatException ex){
             consoleManager.print("Неправильные формат данных");

@@ -2,6 +2,7 @@ package managers;
 
 import commands.*;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 
 public class CommandManager {
@@ -34,6 +35,8 @@ public class CommandManager {
 
     private Save save;
 
+    private ExecuteScript executeScript;
+
 
     public CommandManager(CollectionManager collectionManager, ConsoleManager consoleManager){
         hist = new ArrayList<String>();
@@ -50,6 +53,7 @@ public class CommandManager {
         this.read = new Read(consoleManager, collectionManager);
         this.save = new Save(consoleManager, collectionManager);
 
+
         this.exit = new Exit();
         this.addIfMax = new AddIfMax(consoleManager, collectionManager, this.dataAsker);
         this.addIfMin = new AddIfMin(consoleManager, collectionManager, this.dataAsker);
@@ -57,6 +61,8 @@ public class CommandManager {
         this.removeAllByDifficulty = new RemoveAllByDifficulty(consoleManager, collectionManager);
         this.removeAnyByMinimalPoint = new RemoveAnyByMinimalPoint(consoleManager, collectionManager);
         this.filterByDifficulty = new FilterByDifficulty(consoleManager, collectionManager);
+
+        this.executeScript = new ExecuteScript(consoleManager, collectionManager, this);
     }
 
     public void RunCommand(String command, String args){
@@ -70,7 +76,8 @@ public class CommandManager {
             case "remove_by_id": removeById.execute(args); hist.add(removeById.getName()); break;
             case "clear": clear.execute(args); hist.add(clear.getName()); break;
             case "read": read.execute(args); hist.add(read.getName()); break;
-            case "save": save.execute(args); hist.add(read.getName()); break;
+            case "save": save.execute(args); hist.add(save.getName()); break;
+            case "execute_script": executeScript.execute(args); hist.add(executeScript.getName());break;
 
             case "exit": exit.execute(args); hist.add(exit.getName()); break;
             case "add_if_max": addIfMax.execute(args); hist.add(addIfMin.getName()); break;
@@ -83,8 +90,33 @@ public class CommandManager {
                 consoleManager.print("Команда не распознана" +
                         "Введите help, чтобы узнать доступные команды");
         }
-        /*if(hist.size()>7){
-            hist.remove(0);
-        }*/
     }
+
+    public void RunCommandFromScript(String command, String args, BufferedReader csvReader){
+        command= command.toLowerCase();
+        switch (command){
+            case "help": help.execute(args); hist.add(help.getName()); break;
+            case "info": info.execute(args); hist.add(info.getName()); break;
+            case "show": show.execute(args); hist.add(show.getName()); break;
+            case "add": add.executeFromScript(args, csvReader); hist.add(add.getName()); break;
+            case "update": update.executeFromScript(args, csvReader); hist.add(update.getName()); break;
+            case "remove_by_id": removeById.execute(args); hist.add(removeById.getName()); break;
+            case "clear": clear.execute(args); hist.add(clear.getName()); break;
+            case "read": read.execute(args); hist.add(read.getName()); break;
+            case "save": save.execute(args); hist.add(read.getName()); break;
+            case "execute_script": executeScript.execute(args); hist.add(executeScript.getName());break;
+
+            case "exit": exit.execute(args); hist.add(exit.getName()); break;
+            case "add_if_max": addIfMax.executeFromScript(args, csvReader); hist.add(addIfMin.getName()); break;
+            case "add_if_min": addIfMin.executeFromScript(args, csvReader); hist.add(addIfMax.getName()); break;
+            case "history": history.execute(args); hist.add(history.getName()); break;
+            case "remove_all_by_difficulty": removeAllByDifficulty.execute(args); hist.add(removeAllByDifficulty.getName()); break;
+            case "remove_any_by_minimal_point": removeAnyByMinimalPoint.execute(args); hist.add(removeAnyByMinimalPoint.getName()); break;
+            case "filter_by_difficulty": filterByDifficulty.execute(args); hist.add(filterByDifficulty.getName()); break;
+            default:
+                consoleManager.print("Команда не распознана" +
+                        "Введите help, чтобы узнать доступные команды");
+        }
+    }
+
 }
