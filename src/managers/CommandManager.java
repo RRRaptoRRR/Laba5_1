@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class CommandManager {
 
     private ArrayList<String> hist;
+
+    private ArrayList<String> scriptHist;
     private CollectionManager collectionManager;
     private ConsoleManager consoleManager;
     private DataAsker dataAsker;
@@ -40,6 +42,7 @@ public class CommandManager {
 
     public CommandManager(CollectionManager collectionManager, ConsoleManager consoleManager){
         hist = new ArrayList<String>();
+        scriptHist = new ArrayList<String>();
         this.collectionManager=collectionManager;
         this.consoleManager=consoleManager;
         this.dataAsker=new DataAsker(consoleManager);
@@ -77,7 +80,8 @@ public class CommandManager {
             case "clear": clear.execute(args); hist.add(clear.getName()); break;
             case "read": read.execute(args); hist.add(read.getName()); break;
             case "save": save.execute(args); hist.add(save.getName()); break;
-            case "execute_script": executeScript.execute(args); hist.add(executeScript.getName());break;
+            case "execute_script": scriptHist.add(args); hist.add(executeScript.getName()); executeScript.execute(args);
+            break;
 
             case "exit": exit.execute(args); hist.add(exit.getName()); break;
             case "add_if_max": addIfMax.execute(args); hist.add(addIfMin.getName()); break;
@@ -94,6 +98,7 @@ public class CommandManager {
 
     public void RunCommandFromScript(String command, String args, BufferedReader csvReader){
         command= command.toLowerCase();
+
         switch (command){
             case "help": help.execute(args); hist.add(help.getName()); break;
             case "info": info.execute(args); hist.add(info.getName()); break;
@@ -104,7 +109,28 @@ public class CommandManager {
             case "clear": clear.execute(args); hist.add(clear.getName()); break;
             case "read": read.execute(args); hist.add(read.getName()); break;
             case "save": save.execute(args); hist.add(read.getName()); break;
-            case "execute_script": executeScript.execute(args); hist.add(executeScript.getName());break;
+            case "execute_script":
+                if (scriptHist.size()!=0 ){
+                    if (scriptHist.contains(args)){
+                        consoleManager.print("Данный скрипт уже выполнялся. Пожалуйста, не делайте рекурсию *_*");
+                        scriptHist.clear();
+                        break;
+                    }
+                    else {
+                        scriptHist.add(args);
+                        hist.add(executeScript.getName());
+                        executeScript.execute(args);
+
+                        break;
+                    }
+                }
+                else {
+                    scriptHist.add(executeScript.getName());
+                    hist.add(executeScript.getName());
+                    executeScript.execute(args);
+
+                    break;
+                }
 
             case "exit": exit.execute(args); hist.add(exit.getName()); break;
             case "add_if_max": addIfMax.executeFromScript(args, csvReader); hist.add(addIfMin.getName()); break;
@@ -117,6 +143,9 @@ public class CommandManager {
                 consoleManager.print("Команда не распознана" +
                         "Введите help, чтобы узнать доступные команды");
         }
+    }
+    public ArrayList<String> getScriptHist(){
+        return scriptHist;
     }
 
 }

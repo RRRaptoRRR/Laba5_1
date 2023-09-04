@@ -23,7 +23,7 @@ public class History extends AbstractCommand{
             return false;
         }
         else {
-            consoleManager.print("7 последних введенных вами команд:");
+            consoleManager.print("7 последних выполненных команд:");
             int i =history.size()-1;
             for (int kol =0; kol<7; kol++){
                 consoleManager.print(history.get(i));
